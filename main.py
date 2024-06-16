@@ -1,23 +1,13 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 import time
 
-# Set Chrome options
-chrome_options = Options()
-chrome_options.add_argument("--no-sandbox")  # Required for running in some VPS environments
-chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-chrome_options.add_argument("--headless")  # Run in headless mode for VPS
-chrome_options.add_argument("--disable-infobars")
-chrome_options.add_argument("--disable-extensions")
-chrome_options.add_argument("--disable-popup-blocking")
+# Set Firefox options for headless mode
+firefox_options = Options()
+firefox_options.headless = True
 
-# Path to ChromeDriver executable (ensure it matches your installation)
-chrome_driver_path = "/usr/local/bin/chromedriver"
-
-# Create a new Chrome session
-service = Service(chrome_driver_path)
-driver = webdriver.Chrome(service=service, options=chrome_options)
+# Create a new Firefox session
+driver = webdriver.Firefox(options=firefox_options)
 
 # Open the website (replace with your desired URL)
 website_url = 'http://example.com'
@@ -32,4 +22,3 @@ except KeyboardInterrupt:
 finally:
     # Close the browser
     driver.quit()
-  
